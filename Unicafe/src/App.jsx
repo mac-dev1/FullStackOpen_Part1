@@ -24,9 +24,14 @@ const Display = ({values}) => {
   )
 }
 
-const Calc = ({handler,values,text}) =>{
+const Statistics = (props) =>{
+  const sum = props.values.reduce((acc,curr)=>acc+curr)
   return (
-    <p>{text} {handler(values)}</p>
+    <>
+      <p>all {sum}</p>
+      <p>average {(props.values[0]-props.values[2])/sum}</p>
+      <p>positive {props.values[0]*100/sum}%</p>
+    </>
   )
 }
 
@@ -36,8 +41,6 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const sum = (arr) => arr.reduce((acc,curr)=>acc+curr)
-
   return (
     <div>
       <h1>give feedback</h1>
@@ -46,9 +49,7 @@ const App = () => {
       <Button handler={()=>setBad(bad+1)} text="bad"  />
       <h1>statistics</h1>
       <Display values={[good,neutral,bad]} />
-      <Calc handler={sum} values={[good,neutral,bad]} text="all" />
-      <Calc handler={(arr) => (sum(arr)-neutral)/sum(arr.map(x=>Math.abs(x)))} values={[good,neutral,-bad]} text="average" />
-      <Calc handler={(arr) => arr[0]*100/sum(arr) + "%"} initial={0} values={[good,neutral,bad]} text="positive" />
+      <Statistics values={[good,neutral,bad]} />
     </div>
   )
 }
