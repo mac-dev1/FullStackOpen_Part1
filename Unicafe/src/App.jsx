@@ -6,7 +6,7 @@ const Button = ({handler,text}) =>{
   )
 }
 
-const SingleDisp = ({value,text}) => {
+const StatisticLine = ({text,value}) => {
   return (
     <>
       <p>{text} {value}</p>
@@ -14,15 +14,6 @@ const SingleDisp = ({value,text}) => {
   )
 }
 
-const Display = ({values}) => {  
-  return (
-    <>
-      <SingleDisp value={values[0]} text="good" />
-      <SingleDisp value={values[1]} text="neutral"/>
-      <SingleDisp value={values[2]} text="bad"/>
-    </>
-  )
-}
 
 const Statistics = (props) =>{  
   if(props.values.every(item => item === 0)){
@@ -33,10 +24,12 @@ const Statistics = (props) =>{
   const sum = props.values.reduce((acc,curr)=>acc+curr)
   return (
     <>
-      <Display values={props.values} />
-      <p>all {sum}</p>
-      <p>average {(props.values[0]-props.values[2])/sum}</p>
-      <p>positive {props.values[0]*100/sum}%</p>
+      <StatisticLine text="good" value={props.values[0]} />
+      <StatisticLine text="neutral" value={props.values[1]}/>
+      <StatisticLine text="bad" value={props.values[2]}/>   
+      <StatisticLine text="sum" value={sum} />
+      <StatisticLine text="average" value={(props.values[0]-props.values[2])/sum}/>
+      <StatisticLine text="positive" value={props.values[0]*100/sum + "%"}/>    
     </>
   )
   
