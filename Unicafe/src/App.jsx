@@ -24,15 +24,22 @@ const Display = ({values}) => {
   )
 }
 
-const Statistics = (props) =>{
+const Statistics = (props) =>{  
+  if(props.values.every(item => item === 0)){
+    return (
+      <p>No feedback given</p>
+    )    
+  }
   const sum = props.values.reduce((acc,curr)=>acc+curr)
   return (
     <>
+      <Display values={props.values} />
       <p>all {sum}</p>
       <p>average {(props.values[0]-props.values[2])/sum}</p>
       <p>positive {props.values[0]*100/sum}%</p>
     </>
   )
+  
 }
 
 const App = () => {
@@ -47,8 +54,7 @@ const App = () => {
       <Button handler={() => setGood(good+1)} text="good" />      
       <Button handler={()=>setNeutral(neutral+1)} text="neutral" />
       <Button handler={()=>setBad(bad+1)} text="bad"  />
-      <h1>statistics</h1>
-      <Display values={[good,neutral,bad]} />
+      <h1>statistics</h1>      
       <Statistics values={[good,neutral,bad]} />
     </div>
   )
