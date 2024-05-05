@@ -8,9 +8,10 @@ const Button = ({handler,text}) =>{
 
 const StatisticLine = ({text,value}) => {
   return (
-    <>
-      <p>{text} {value}</p>
-    </>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   )
 }
 
@@ -23,14 +24,16 @@ const Statistics = (props) =>{
   }
   const sum = props.values.reduce((acc,curr)=>acc+curr)
   return (
-    <>
-      <StatisticLine text="good" value={props.values[0]} />
-      <StatisticLine text="neutral" value={props.values[1]}/>
-      <StatisticLine text="bad" value={props.values[2]}/>   
-      <StatisticLine text="sum" value={sum} />
-      <StatisticLine text="average" value={(props.values[0]-props.values[2])/sum}/>
-      <StatisticLine text="positive" value={props.values[0]*100/sum + "%"}/>    
-    </>
+    <table>
+      <tbody>
+        <StatisticLine text="good" value={props.values[0]} />
+        <StatisticLine text="neutral" value={props.values[1]}/>
+        <StatisticLine text="bad" value={props.values[2]}/>   
+        <StatisticLine text="sum" value={sum} />
+        <StatisticLine text="average" value={(props.values[0]-props.values[2])/sum}/>
+        <StatisticLine text="positive" value={props.values[0]*100/sum + "%"}/>    
+      </tbody>
+    </table>
   )
   
 }
